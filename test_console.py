@@ -20,7 +20,7 @@ class TestConsoleDocs(unittest.TestCase):
         """function docstring"""
         self.assertIsNot(HBNBCommand.__doc__, None,
                          "HBNB no docstring")
-        
+
     def test_pep8_test_style(self):
         """Pep8 style test"""
         pep8_codstyle = pycodestyle.StyleGuide(quiet=True)

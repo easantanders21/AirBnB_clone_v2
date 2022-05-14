@@ -1,5 +1,5 @@
 -- prepares a MySQL server for the project
--- Creates the database
+-- creates the database
 CREATE DATABASE IF NOT EXISTS hbnb_dev_db;
 -- create a user only if the user doesn't exists
 CREATE USER IF NOT EXISTS 'hbnb_dev'@'localhost' IDENTIFIED BY 'hbnb_dev_pwd';
