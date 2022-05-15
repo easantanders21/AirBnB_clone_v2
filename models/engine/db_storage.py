@@ -1,8 +1,6 @@
 """ Class DBStorage """
 
 import os
-from tkinter.messagebox import NO
-from unittest import result
 from models.user import User
 from models.state import State
 from models.city import City
@@ -12,7 +10,7 @@ from models.review import Review
 from sqlalchemy import create_engine
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import scoped_session, sessionmaker
-from console import HBNBCommand
+
 
 
 class DBStorage:
