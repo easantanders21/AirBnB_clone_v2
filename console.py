@@ -147,7 +147,7 @@ class HBNBCommand(cmd.Cmd):
                         v = v
                     setattr(new_instance, k, v)
             print(new_instance.id)
-            storage.new(new_instance)
+            #storage.new(new_instance)
             storage.save()
         except:
             print("** primer exept **")
