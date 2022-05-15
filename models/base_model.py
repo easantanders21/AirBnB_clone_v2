@@ -19,7 +19,6 @@ class BaseModel:
     def __init__(self, *args, **kwargs):
         """Instantiation of base model class
         """
-
         if kwargs:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
