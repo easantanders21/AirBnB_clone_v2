@@ -1,6 +1,8 @@
 """ Class DBStorage """
 
 import os
+from tkinter.messagebox import NO
+from unittest import result
 from models.user import User
 from models.state import State
 from models.city import City
@@ -30,10 +32,37 @@ class DBStorage:
 
         if os.getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
-            
+
     def all(self, cls=None):
         dic_cls = {}
-        print(self.__session.query(cls).all())
+
+        if cls is None:
+
+            query = self.__session.query(State, City, User,
+                                         Place, Review, Amenity).all()
+
+        else:
+            query = self.__session.query(cls).all()
+
+        for _obj in query:
+            k = "{}.{}".format(_obj.__class__.__name__, _obj.id)
+            dic_cls[k] = _obj
+
+        return dic_cls
+
+        # for _classes in HBNBCommand.classes:
+        #     if cls is HBNBCommand.classes or:
+        #     res_query = self.__session.query(HBNBCommand.classes[cls].all())
+        #     for obj in res_query:
+        #         k = obj.__class__.__name__ + '.' + obj.id
+        #         k = "{}.{}".format(obj.__class__.__name__, obj.id)
+        #         dic_cls[k] = obj
+        # return
+
+
+
+
+        #print(self.__session.query(cls).all())
 
     def new(self, obj):
         """add the object to the current database session (self.__session)"""
