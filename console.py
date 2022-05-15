@@ -150,7 +150,7 @@ class HBNBCommand(cmd.Cmd):
             storage.new(new_instance)
             storage.save()
         except:
-            print("** primer exept **")
+            pass
 
     def help_create(self):
         """ Help information for the create method """
