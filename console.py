@@ -2,7 +2,6 @@
 """ Console Module """
 import cmd
 import sys
-from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
 from models.place import Place
@@ -10,6 +9,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+from models.base_model import BaseModel
 
 
 class HBNBCommand(cmd.Cmd):
@@ -147,6 +147,7 @@ class HBNBCommand(cmd.Cmd):
                         v = v
                     setattr(new_instance, k, v)
             print(new_instance.id)
+            storage.new(new_instance)
             storage.save()
         except:
             print("** primer exept **")
@@ -231,7 +232,8 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all(HBNBCommand.classes[args]).items():
+            #for k, v in storage.all():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:

@@ -1,6 +1,6 @@
 """ Class DBStorage """
 
-from os import environ
+import os
 from models.user import User
 from models.state import State
 from models.city import City
@@ -9,14 +9,8 @@ from models.place import Place
 from models.review import Review
 from sqlalchemy import create_engine
 from models.base_model import BaseModel, Base
-
-classes = {'BaseModel': BaseModel,
-           'User': User,
-           'Place': Place,
-           'State': State,
-           'City': City,
-           'Amenity': Amenity,
-           'Review': Review}
+from sqlalchemy.orm import scoped_session, sessionmaker
+from console import HBNBCommand
 
 
 class DBStorage:
@@ -27,15 +21,19 @@ class DBStorage:
 
     def __init__(self):
 
-        db = 'mysql+mysqldb://{}:{}@{}/{}'.format(environ["HBNB_MYSQL_USER"],
-                                                  environ["HBNB_MYSQL_PWD"],
-                                                  environ["HBNB_MYSQL_HOST"],
-                                                  environ["HBNB_MYSQL_DB"])
+        db = 'mysql+mysqldb://{}:{}@{}/{}'.format(os.environ["HBNB_MYSQL_USER"],
+                                                  os.environ["HBNB_MYSQL_PWD"],
+                                                  os.environ["HBNB_MYSQL_HOST"],
+                                                  os.environ["HBNB_MYSQL_DB"])
 
         self.__engine = create_engine(db, pool_pre_ping=True)
 
-        if environ["HBNB_ENV"] == "test":
+        if os.getenv("HBNB_ENV") == "test":
             Base.metadata.drop_all(self.__engine)
+            
+    def all(self, cls=None):
+        dic_cls = {}
+        print(self.__session.query(cls).all())
 
     def new(self, obj):
         """add the object to the current database session (self.__session)"""
@@ -50,7 +48,15 @@ class DBStorage:
         if obj is not None:
             self.__session.delete(obj)
 
-
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
+
+    def reload(self):
+        """create all reload data
+        """
+        Base.metadata.create_all(self.__engine)
+        session_factory = sessionmaker(bind=self.__engine,
+                                       expire_on_commit=False)
+        self.__session = scoped_session(
+            session_factory)
