@@ -10,30 +10,25 @@ import os
 
 class State(BaseModel, Base):
     """ State class """
+    __tablename__ = 'states'
 
-    if os.environ["HBNB_TYPE_STORAGE"] == "db":
+    name = Column(String(128), nullable=False)
 
-        __tablename__ = 'states'
-
-        name = Column(String(128),
-                      nullable=False)
+    if os.getenv("HBNB_TYPE_STORAGE") == "db":
 
         cities = relationship("City",
                               cascade="all, delete",
-                              backref="state")
+                              backref="states")
 
 
     else:
         name = ""
 
-        @property  # getter
+        @property
         def cities(self):
             """returns the list of City instances with state_id"""
-            cities_list = [] # create type list to return
-            _cities = models.storage.all(City) #
-            print('------------------------------------------------')
-            print(_cities)
-            print('------------------------------------------------')
+            cities_list = []
+            _cities = models.storage.all(City)
             for _city in _cities.values():
                 if self.id == _city.state_id:
                     cities_list.append(_city)

@@ -150,7 +150,7 @@ class HBNBCommand(cmd.Cmd):
             storage.new(new_instance)
             storage.save()
         except:
-            print("** primer exept **")
+            pass
 
     def help_create(self):
         """ Help information for the create method """
@@ -233,7 +233,6 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             for k, v in storage.all(HBNBCommand.classes[args]).items():
-            #for k, v in storage.all():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
