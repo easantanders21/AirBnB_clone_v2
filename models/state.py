@@ -10,13 +10,11 @@ import os
 
 class State(BaseModel, Base):
     """ State class """
+    __tablename__ = 'states'
 
-    if os.environ["HBNB_TYPE_STORAGE"] == "db":
+    name = Column(String(128), nullable=False)
 
-        __tablename__ = 'states'
-
-        name = Column(String(128),
-                      nullable=False)
+    if os.getenv("HBNB_TYPE_STORAGE") == "db":
 
         cities = relationship("City",
                               cascade="all, delete",
