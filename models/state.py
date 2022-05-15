@@ -18,7 +18,7 @@ class State(BaseModel, Base):
 
         cities = relationship("City",
                               cascade="all, delete",
-                              backref="state")
+                              backref="states")
 
 
     else:
