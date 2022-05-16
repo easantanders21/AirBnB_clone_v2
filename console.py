@@ -130,7 +130,7 @@ class HBNBCommand(cmd.Cmd):
                 param_dict[param_k] = param_v
             try:
                 new_instance = HBNBCommand.classes[args_list[0]]()
-            except NameError:
+            except:
                 print("** class doesn't exist **")
                 return
             for k, v in param_dict.items():
@@ -143,13 +143,13 @@ class HBNBCommand(cmd.Cmd):
                             v = float(v)
                         else:
                             v = int(v)
-                    except TypeError:
+                    except:
                         v = v
                     setattr(new_instance, k, v)
             print(new_instance.id)
             storage.new(new_instance)
             storage.save()
-        except TypeError:
+        except:
             pass
 
     def help_create(self):
