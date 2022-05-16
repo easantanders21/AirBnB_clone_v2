@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """ Console Module """
+
+
 import cmd
 import sys
 from models.__init__ import storage
@@ -15,7 +17,6 @@ from models.base_model import BaseModel
 class HBNBCommand(cmd.Cmd):
     """ Contains the functionality for the HBNB console"""
 
-    # determines prompt for interactive/non-interactive modes
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
 
     classes = {
@@ -36,43 +37,30 @@ class HBNBCommand(cmd.Cmd):
             print('(hbnb)')
 
     def precmd(self, line):
-        """Reformat command line for advanced command syntax.
-
-        Usage: <class name>.<command>([<id> [<*args> or <**kwargs>]])
-        (Brackets denote optional fields in usage example.)
-        """
+        """Reformat command line for advanced command syntax"""
         _cmd = _cls = _id = _args = ''  # initialize line elements
 
-        # scan for general formating - i.e '.', '(', ')'
         if not ('.' in line and '(' in line and ')' in line):
             return line
 
-        try:  # parse line left to right
-            pline = line[:]  # parsed line
+        try:
+            pline = line[:]
 
-            # isolate <class name>
             _cls = pline[:pline.find('.')]
 
-            # isolate and validate <command>
             _cmd = pline[pline.find('.') + 1:pline.find('(')]
             if _cmd not in HBNBCommand.dot_cmds:
                 raise Exception
 
-            # if parantheses contain arguments, parse them
             pline = pline[pline.find('(') + 1:pline.find(')')]
             if pline:
-                # partition args: (<id>, [<delim>], [<*args>])
+
                 pline = pline.partition(', ')  # pline convert to tuple
 
-                # isolate _id, stripping quotes
                 _id = pline[0].replace('\"', '')
-                # possible bug here:
-                # empty quotes register as empty _id when replaced
-
-                # if arguments exist beyond _id
                 pline = pline[2].strip()  # pline is now str
                 if pline:
-                    # check for *args or **kwargs
+
                     if pline[0] == '{' and pline[-1] == '}'\
                             and type(eval(pline)) is dict:
                         _args = pline
@@ -87,7 +75,7 @@ class HBNBCommand(cmd.Cmd):
             return line
 
     def postcmd(self, stop, line):
-        """Prints if isatty is false"""
+        """ Prints if isatty is false """
         if not sys.__stdin__.isatty():
             print('(hbnb) ', end='')
         return stop
@@ -114,7 +102,7 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        """ Create an object of any class"""
+        """ Create an object of any class """
         if not args:
             print("** class name missing **")
             return
@@ -247,7 +235,7 @@ class HBNBCommand(cmd.Cmd):
         print("[Usage]: all <className>\n")
 
     def do_count(self, args):
-        """Count current number of class instances"""
+        """ Count current number of class instances """
         count = 0
         for k, v in storage._FileStorage__objects.items():
             if args == k.split('.')[0]:
@@ -255,7 +243,7 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def help_count(self):
-        """ """
+        """ help count """
         print("Usage: count <class_name>")
 
     def do_update(self, args):
