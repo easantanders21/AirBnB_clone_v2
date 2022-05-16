@@ -2,7 +2,7 @@
 """ State Module for HBNB project """
 from os import getenv
 from models.base_model import BaseModel, Base
-from models.place import Place, place_amenity
+#from models.place import Place, place_amenity
 from sqlalchemy import String, Column
 from sqlalchemy.orm import relationship
 
