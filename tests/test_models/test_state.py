@@ -64,6 +64,15 @@ class TestState(unittest.TestCase):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.state), True)
 
+    def test_name_attr(self):
+        """Test that Amenity has attribute name, and it's as an empty string"""
+        state = State()
+        self.assertTrue(hasattr(state, "name"))
+        if storage_t == 'db':
+            self.assertEqual(state.name, None)
+        else:
+            self.assertEqual(state.name, "")
+
 
 if __name__ == "__main__":
     unittest.main()
