@@ -45,4 +45,3 @@ class test_User(test_basemodel):
     def test_to_dict_User(self):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.user), True)
-

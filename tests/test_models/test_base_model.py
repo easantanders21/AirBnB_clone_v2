@@ -16,7 +16,7 @@ class test_basemodel(unittest.TestCase):
         super().__init__(*args, **kwargs)
         self.name = 'BaseModel'
         self.value = BaseModel
-        
+
     def test_doc_class(self):
         """Test if the class documentation exist"""
         self.assertTrue(len(BaseModel.__doc__) > 0)
