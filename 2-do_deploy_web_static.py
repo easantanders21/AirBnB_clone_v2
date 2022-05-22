@@ -22,7 +22,7 @@ def do_deploy(archive_path):
         run("tar xzf /tmp/{} -C {}{}/".format(file_name, path, file_not_ext))
         run("rm /tmp/{}".format(file_name))
         run("rm /data/web_static/current")
-        run("ln -s {}{} /data/web_static/current".format(path, file_not_ext))
+        run("ln -s {}{}/ /data/web_static/current".format(path, file_not_ext))
         return True
     except Exception:
         return False
