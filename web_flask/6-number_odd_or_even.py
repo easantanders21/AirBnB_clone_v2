@@ -49,9 +49,9 @@ def task_5(n):
 def task_6(n):
     """ Task 6 Function """
     if n % 2 == 0:
-        str_even_odd = " is even"
+        str_even_odd = "even"
     else:
-        str_even_odd = " is odd"
+        str_even_odd = "odd"
     return render_template("6-number_odd_or_even.html",
                            n=n, str_even_odd=str_even_odd)
 
