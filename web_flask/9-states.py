@@ -10,22 +10,14 @@ app = Flask(__name__)
 
 
 @app.route("/states", strict_slashes=False)
-def task_10_1():
-    """ Task 10 Function """
-    list_states = storage.all(State)
-    return(render_template("9-states.html", list_states=list_states))
-
-
 @app.route("/states/<id>", strict_slashes=False)
-def task_10_2(id):
+def task_10(id=None):
     """ Task 10 Function """
     list_states = storage.all(State)
-    for state in list_states.values():
-        if state.id == id:
-            return(render_template("9-states.html", state=state))
-        else:
-            return(render_template("9-states.html", state=None))
-            
+    if id == None:
+        return(render_template("9-states.html", list_states=list_states))
+    else:
+        return(render_template("9-states.html", list_states=list_states, id = "State." + id))
 
 
 @app.teardown_appcontext
