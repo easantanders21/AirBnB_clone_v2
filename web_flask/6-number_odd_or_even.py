@@ -47,12 +47,13 @@ def task_5(n):
 
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def task_6(n):
-    """ Task 5 Function """
+    """ Task 6 Function """
     if n % 2 == 0:
         str_even_odd = " is even"
     else:
         str_even_odd = " is odd"
-    return render_template("6-number_odd_or_even.html", n=n, str_even_odd=str_even_odd)
+    return render_template("6-number_odd_or_even.html",
+                           n=n, str_even_odd=str_even_odd)
 
 
 if __name__ == '__main__':
