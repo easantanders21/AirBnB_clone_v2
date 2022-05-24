@@ -14,10 +14,11 @@ app = Flask(__name__)
 def task_10(id=None):
     """ Task 10 Function """
     list_states = storage.all(State)
-    if id == None:
+    if id is None:
         return(render_template("9-states.html", list_states=list_states))
     else:
-        return(render_template("9-states.html", list_states=list_states, id = "State." + id))
+        return(render_template("9-states.html",
+                               list_states=list_states, id="State." + id))
 
 
 @app.teardown_appcontext

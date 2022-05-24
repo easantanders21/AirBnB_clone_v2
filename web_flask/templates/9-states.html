@@ -8,17 +8,18 @@
         <H1>States</H1>
         <UL>
             {% for state in list_states.values() | sort(attribute='name') %}
-            <LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
+                <LI>{{ state.id }}: <B>{{ state.name }}</B></LI>
             {% endfor %}   
         </UL>
         {% elif id in list_states %}
-        {% set state = list_states[id] %}
-        <H1>State: {{state.name}}</H1>
-            <UL>
-                {% for cities in state.cities %}
-                <LI>{{ cities.id }}: <B>{{ cities.name }}</B></LI>
+            {% set state = list_states[id] %}
+            <H1>States: {{ state.name }}</H1>
+            <H3>Cities:</H3>
+                <UL>
+                {% for cities in state.cities | sort(attribute='name') %}
+                    <LI>{{ cities.id }}: <B>{{ cities.name }}</B></LI>
                 {% endfor %}
-            </UL>
+                </UL>
         {% else %}
         <H1>Not found</H1>
         {% endif %}
