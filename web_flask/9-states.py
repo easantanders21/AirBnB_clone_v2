@@ -1,0 +1,38 @@
+#!/usr/bin/python3
+""" Task 10: script that starts a Flask web application """
+
+from flask import Flask, render_template
+from models import storage
+from models.state import State
+from models.city import City
+
+app = Flask(__name__)
+
+
+@app.route("/states", strict_slashes=False)
+def task_10_1():
+    """ Task 10 Function """
+    list_states = storage.all(State)
+    return(render_template("9-states.html", list_states=list_states))
+
+
+@app.route("/states/<id>", strict_slashes=False)
+def task_10_2(id):
+    """ Task 10 Function """
+    list_states = storage.all(State)
+    for state in list_states.values():
+        if state.id == id:
+            return(render_template("9-states.html", state=state))
+        else:
+            return(render_template("9-states.html", state=None))
+            
+
+
+@app.teardown_appcontext
+def call_storage_close(exception):
+    """ close the current SQLAlchemy Session """
+    storage.close()
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port='5000', debug=True)
