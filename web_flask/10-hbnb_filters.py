@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Task 10: script that starts a Flask web application """
+""" Task 11: script that starts a Flask web application """
 
 from flask import Flask, render_template
 from models import storage
@@ -12,10 +12,11 @@ app = Flask(__name__)
 
 @app.route("/hbnb_filters", strict_slashes=False)
 def task_11(id=None):
-    """ Task 10 Function """
+    """ Task 11 Function """
     list_states = storage.all(State)
     list_amenities = storage.all(Amenity)
-    return(render_template("10-hbnb_filters.html", list_states=list_states, 
+    return(render_template("10-hbnb_filters.html",
+                           list_states=list_states,
                            list_amenities=list_amenities))
 
 
